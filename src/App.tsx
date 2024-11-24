@@ -8,7 +8,7 @@ const App = () => {
 
   return (
     <>
-      <div className="text-center">
+      <div className="h-[100vh] bg-blue-200">
       <ToDoProvider>
       <ToDoApp />
       </ToDoProvider>
