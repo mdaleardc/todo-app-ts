@@ -1,8 +1,12 @@
+import { useContext } from "react"
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
+import { ToDoContext } from "../Contexts/ToDoContext";
 
 
-const ToDoList = ({tasks, setTasks, setInput, setBtnUpdate, setID}) => {
+const ToDoList = () => {
+  
+    const {input, setInput, tasks, setTasks, btnUpdate, setBtnUpdate, ID, setID} = useContext(ToDoContext);
   
   const handleRemove = (indexToRemove) => {
   const isConfirm = window.confirm("Are you sure to remove it?");

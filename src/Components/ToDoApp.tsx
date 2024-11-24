@@ -1,20 +1,19 @@
-import { useState } from "react";
+import { useContext } from "react";
 import ToDoList from "./ToDoList";
 import taskImg from "../assets/task.jpeg"
 import { v4 as uuidv4 } from 'uuid';
+import { ToDoContext } from "../Contexts/ToDoContext";
+
 
 const ToDoApp = () => {
   
-  const [input, setInput] = useState("");
-  const [task, setTask] = useState([]);
-  const [btnUpdate, setBtnUpdate] = useState(true);
-  const [ID, setID] = useState(null);
+  const {input, setInput, tasks, setTasks, btnUpdate, setBtnUpdate, ID, setID} = useContext(ToDoContext);
   
   const handleChange = (e) => {
       setInput(e.target.value);
   }
   
-  const taskWithId = {id:uuidv4(), title:input, compelet:false};
+  const allInputs = {id:uuidv4(), title:input, compelet:false};
   
   
   const addTask = () => {
@@ -22,7 +21,7 @@ const ToDoApp = () => {
     if(!input) {
       alert("Please add or update a valid task!");
     } else if(!btnUpdate) {
-      setTask(task.map((elem) => {
+      setTasks(tasks.map((elem) => {
         if(elem.id === ID) {
           return {...elem, title:input}
         }
@@ -32,7 +31,7 @@ const ToDoApp = () => {
       setInput("");
       setID(null);
       } else {
-    setTask([...task, taskWithId]);
+    setTasks([...tasks, allInputs]);
     setInput("")
     }
   }
@@ -40,7 +39,6 @@ const ToDoApp = () => {
   const handleKeyPress = (e) => {
     if(e.key === "Enter") {
       addTask();
-  console.log(taskWithId);
     }
   }
   return (
@@ -58,12 +56,7 @@ const ToDoApp = () => {
       btnUpdate ? <button className='bg-[#28e] rounded-md text-white block w-[80%] mx-auto text-2xl font-semibold py-[5px] text-center' onClick={addTask}>Add Task</button> : <button className='bg-[#28e] rounded-md text-white block w-[80%] mx-auto text-2xl font-semibold py-[5px] text-center' onClick={addTask}>Update Task</button>
     }
     
-    <ToDoList
-    tasks={task}
-    setTasks={setTask}
-    setInput={setInput}
-    setBtnUpdate={setBtnUpdate}
-    setID={setID}/>
+    <ToDoList />
     
     </div>
     </div>

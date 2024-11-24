@@ -1,12 +1,17 @@
 import ToDoApp from "./Components/ToDoApp";
+import { ToDoProvider } from "./Contexts/ToDoContext";
 
 
-function App() {
+const App = () => {
+
+
 
   return (
     <>
       <div className="text-center">
+      <ToDoProvider>
       <ToDoApp />
+      </ToDoProvider>
       </div>
     </>
   )
