@@ -1,16 +1,27 @@
-import { createContext, useState }  from "react";
+import { createContext, useState, useEffect }  from "react";
 import { v4 as uuidv4 } from 'uuid';
 
 
 const ToDoContext = createContext();
 
+const getLocalStorageData = () => {
+  const getLocalData = localStorage.getItem("localData");
+  return getLocalData ? JSON.parse(localStorage.getItem("localData")) : [];
+}
+
+
 const ToDoProvider = ({children}) => {
   
   
   const [input, setInput] = useState("");
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState(getLocalStorageData());
   const [btnUpdate, setBtnUpdate] = useState(true);
   const [ID, setID] = useState(null);
+  
+  //Store data local storage
+   useEffect(()=> {
+     localStorage.setItem("localData", JSON.stringify(tasks))
+   }, [tasks])
   
   const handleChange = (e) => {
       setInput(e.target.value);
